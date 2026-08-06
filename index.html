@@ -229,6 +229,17 @@
         <label>/25</label><input class="fld xs" data-k="doc_yr">
       </div>
 
+      <div class="rowline noprint" style="background:#eef6ff;border:1px solid #bcd6ef;border-radius:8px;padding:7px 10px;margin:4px 0;align-items:center;">
+        <label style="font-weight:700;color:#12303f;font-size:15px;">เลือกกรุ๊บทำงาน:</label>
+        <select id="groupSel" class="minisel" onchange="pickGroup(this)" style="font-size:15px;padding:5px 10px;">
+          <option value="">▼ เลือกกรุ๊บ</option>
+          <option>SMU CR</option>
+          <option>SMU CM2</option>
+          <option>SMU LN3</option>
+        </select>
+        <span style="font-size:12px;color:#777;">(เติมชื่อ กฟผ. + รายชื่อผู้ปฏิบัติงานหน้า 2 อัตโนมัติ)</span>
+      </div>
+
       <hr class="thin">
       <div class="section-head">สำหรับผู้ปฏิบัติงาน กฟผ.</div>
       <div class="sec-tools noprint">
@@ -430,10 +441,56 @@
     {name:'นายภูริพงศ์ ทิพย์แก้ว', id:'599000', pos:'ช.3', unit:'หถน4-ส.'},
     {name:'นายนพดล โปธาพันธ์', id:'598411', pos:'ช.3', unit:'หถน4-ส.'},
     {name:'นายนทีกานต์ สุขโชติ', id:'592997', pos:'ช.6', unit:'หถน4-ส.'},
-    {name:'นายจักริน อินทร์สะอาด', id:'575187', pos:'ช.7', unit:'หถน4-ส.'}
+    {name:'นายจักริน อินทร์สะอาด', id:'575187', pos:'ช.7', unit:'หถน4-ส.'},
+    {name:'นายธงชัย กุยมา', id:'590089', pos:'ช.7', unit:'หถน4-ส.'},
+    {name:'นายอนุชิต สิงห์ดี', id:'591402', pos:'ช.6', unit:'หถน4-ส.'},
+    {name:'ว่าที่ ร.ต.ณภัทรวัฒน์ วัฒน์ธีรหิรัญ', id:'591310', pos:'ช.6', unit:'หถน4-ส.'},
+    {name:'นายวรากรณ์ แต้มคม', id:'593692', pos:'ช.6', unit:'หถน4-ส.'},
+    {name:'นายวินัย ศรีมหาโกศล', id:'591398', pos:'ช.7', unit:'หถน4-ส.'},
+    {name:'นายสุขุมพันธ์ บุญมาเมือง', id:'592652', pos:'ช.6', unit:'หถน4-ส.'},
+    {name:'นายนิพนธ์ อินใจมา', id:'592868', pos:'ช.6', unit:'หถน4-ส.'},
+    {name:'นายนัฐพงษ์ อ่องอ้น', id:'595013', pos:'ช.5', unit:'หถน4-ส.'}
   ];
   var PERSON_OPTIONS = '<option value="">— เลือกชื่อ —</option>' +
     WORKERS.map(function(w,i){ return '<option value="'+i+'">'+(i+1)+'. '+w.name+'</option>'; }).join('');
+
+  // กรุ๊บทำงาน → รายชื่อพนักงานเริ่มต้น (อ้างชื่อจาก WORKERS)
+  var GROUPS = {
+    'SMU CR':['นายไชยยา ดำแดงดี','นายฤทธิชัย เร็วการ','นายธนวัฒน์ ติ๊บปาละ','นายภูริพงศ์ ทิพย์แก้ว'],
+    'SMU CM2':['นายธงชัย กุยมา','นายอนุชิต สิงห์ดี','ว่าที่ ร.ต.ณภัทรวัฒน์ วัฒน์ธีรหิรัญ','นายวรากรณ์ แต้มคม'],
+    'SMU LN3':['นายวินัย ศรีมหาโกศล','นายสุขุมพันธ์ บุญมาเมือง','นายนิพนธ์ อินใจมา','นายนัฐพงษ์ อ่องอ้น']
+  };
+  // กรุ๊บ → ผู้ปฏิบัติงาน กฟผ. (ข้าพเจ้า) เริ่มต้น
+  var GROUP_EGAT = {
+    'SMU CR':{name:'นายฤทธิชัย เร็วการ', id:'595014', pos:'ช.6'},
+    'SMU CM2':{name:'นายอนุชิต สิงห์ดี', id:'591402', pos:'ช.6'},
+    'SMU LN3':{name:'นายสุขุมพันธ์ บุญมาเมือง', id:'592652', pos:'ช.6'}
+  };
+  // เลือกกรุ๊บ → เติมรายชื่อพนักงานเริ่มต้นในตารางหน้า 2
+  function pickGroup(sel){
+    var g=sel.value; if(!g) return;
+    var names=GROUPS[g]||[];
+    var byName={}; WORKERS.forEach(function(w){ byName[w.name]=w; });
+    var tb=document.getElementById('wbody'); tb.innerHTML='';
+    for(var i=0;i<names.length;i++) addRow();   // แถวเท่าจำนวนคนในกรุ๊บ
+    var rows=tb.querySelectorAll('tr');
+    names.forEach(function(nm,i){
+      var w=byName[nm], r=rows[i]; if(!w||!r) return;
+      r.cells[1].querySelector('input').value=w.name;
+      r.cells[2].querySelector('input').value=w.id;
+      r.cells[3].querySelector('input').value=w.pos;
+      r.cells[4].querySelector('input').value=w.unit;
+    });
+    var f=document.getElementById('numWorker'); if(f) f.value=names.length;
+    // ตั้งข้อมูล กฟผ. (ข้าพเจ้า) ตามหัวหน้ากรุ๊บ
+    var lead=GROUP_EGAT[g];
+    if(lead){
+      setVal('egat_name', lead.name); setVal('egat_id', lead.id); setVal('egat_pos', lead.pos);
+      syncRequesterName();
+    }
+    renderAttachPages();   // อัปเดตฟอร์มแนบตามข้อมูลใหม่
+    toast('เลือกกรุ๊บ '+g+' — เติมชื่อ กฟผ. + รายชื่อ '+names.length+' คน');
+  }
 
   // ชื่อผู้อนุญาต (หน้า 2) ตามรหัสสถานที่ — สถานีที่มีหลายชื่อจะมีเมนูให้เลือก
   var AUTH_BY_STATION = {
@@ -462,8 +519,7 @@
     egat_pos: 'ช.6',
     egat_dept: 'หถน4-ส.',
     egat_div: 'กถน-ส.',
-    egat_sec: 'อปน.',
-    egat_tel: '091-4164989'
+    egat_sec: 'อปน.'
   };
 
   // ช่องที่ถือเป็น "ค่าประจำ" (บันทึก/โหลดซ้ำได้) — ไม่รวมช่องที่เปลี่ยนรายวัน
