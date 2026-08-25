@@ -902,7 +902,7 @@ var DEPARTMENTS = {
     authPosName:{'นายชัยวัฒน์ สมโน':'ทนท.หน. สฟ.พะเยา','นายศุภกฤษฏิ์ อายุมั่น':'ทนท.หน. สฟ.ลำพูน 3','นายเอกชัย อินต๊ะศรี':'ทนท.หน. สฟ.ลำพูน 3','นายสุทิชา ต้าวอินท์':'ทนท.หน. สฟ.ลำพูน 3'}
   },
   'หถน2-ส.': {
-    div:'', sec:'',
+    div:'กถน-ส.', sec:'อปน.', tel:'0827816390',
     egatDefault:{name:'นายเอกลักษณ์ ใจดี', id:'595016', pos:'ช.6'},
     workers:[
       {name:'นายเอกลักษณ์ ใจดี', id:'595016', pos:'ช.6'},
@@ -951,7 +951,7 @@ function pickDept(code){
   AUTH_BY_STATION=d.auth||{}; STATIONS=d.stations||[];
   SP_AUTH_POS_STATION=d.authPos||{}; SP_AUTH_POS_NAME=d.authPosName||{};
   var ed=d.egatDefault||{};
-  EGAT_DEFAULTS={ egat_name:ed.name||'', egat_id:ed.id||'', egat_pos:ed.pos||'', egat_dept:code, egat_div:d.div||'', egat_sec:d.sec||'' };
+  EGAT_DEFAULTS={ egat_name:ed.name||'', egat_id:ed.id||'', egat_pos:ed.pos||'', egat_dept:code, egat_div:d.div||'', egat_sec:d.sec||'', egat_tel:d.tel||'' };
   var gs=document.getElementById('groupSel');
   if(gs) gs.innerHTML='<option value="">▼ เลือกกรุ๊บ</option>'+Object.keys(GROUPS).map(function(g){ return '<option>'+g+'</option>'; }).join('');
   var ss=document.getElementById('stationSel');
@@ -959,7 +959,7 @@ function pickDept(code){
   var apk=document.getElementById('authPick'); if(apk) apk.innerHTML='';
   setVal('owner12_name',''); setVal('owner14_name',''); setVal('p3name2','');
   buildTables();
-  ['egat_name','egat_id','egat_pos','egat_dept','egat_div','egat_sec'].forEach(function(k){ setVal(k, EGAT_DEFAULTS[k]); });
+  ['egat_name','egat_id','egat_pos','egat_dept','egat_div','egat_sec','egat_tel'].forEach(function(k){ setVal(k, EGAT_DEFAULTS[k]); });
   setVal('ctl_dept',code); setVal('ctl_div',d.div||''); setVal('ctl_sec',d.sec||'');
   syncReq(); updateCount();
   safeStore('set', DEPT_KEY, code);
