@@ -128,7 +128,7 @@
     <div><label>เลือกแผนก:</label>
       <select id="deptSel" class="minisel" onchange="pickDept(this.value)">
         <option value="">▼ เลือกแผนก</option>
-        <option>หถน1-ส.</option><option>หถน2-ส.</option><option>หถน3-ส.</option><option>หถน4-ส.</option><option>หรล5-ส.</option>
+        <option>หถน1-ส.</option><option>หถน2-ส.</option><option>หถน3-ส.</option><option>หถน4-ส.</option><option>หรล5-ส.</option><option>หรน3-ส.</option>
       </select>
     </div>
     <div><label>เลือกกรุ๊บทำงาน:</label>
@@ -927,6 +927,24 @@ var DEPARTMENTS = {
     authPos:{LS:'หน.สฟ.หล่มสัก',PE:'หน.สฟ.เพชรบูรณ์',BGS:'หน.สฟ.บึงสามพัน',NS:'หน.สฟ.นครสวรรค์',SLB:'หน.สฟ.สลกบาตร',MR:'หน.สฟ.มโนรมย์',TK2:'หน.สฟ.ตาคลี2',TTK:'หน.สฟ.ท่าตะโก',PC:'หน.สฟ.พิจิตร',BMN:'หน.สฟ.บางมูลนาก',HUW:'หน.สฟ.หัวหวาย'},
     authPosName:{}
   },
+  'หรน3-ส.': {
+    div:'กรน-ส.', sec:'อปน.', tel:'', zoneFirst:'หถน4-ส.',
+    egatDefault:{},
+    workers:[
+      {name:'นายไตรภพ ชัยวงศ์', id:'530557', pos:'ช.8'},
+      {name:'นายวีรชาติ เตชะสุข', id:'595019', pos:'ช.6'},
+      {name:'นายพัทธนันท์ ชัยอักษร', id:'598871', pos:'ช.3'},
+      {name:'นายสิทธิพงษ์ พินิจสุวรรณ', id:'590736', pos:'ช.7'},
+      {name:'นายชิตกร ลวงระแหง', id:'595020', pos:'ช.6'},
+      {name:'นายบุญเชิด สุขคง', id:'596273', pos:'ช.5'}
+    ],
+    groups:{
+      'C43D':['นายไตรภพ ชัยวงศ์','นายวีรชาติ เตชะสุข','นายพัทธนันท์ ชัยอักษร'],
+      'C43E':['นายสิทธิพงษ์ พินิจสุวรรณ','นายชิตกร ลวงระแหง','นายบุญเชิด สุขคง']
+    },
+    groupEgat:{}, groupCtrl:{},
+    stations:[], auth:{}, authPos:{}, authPosName:{}
+  },
   'หรล5-ส.': {
     div:'กรป-ส.', sec:'อรค.', tel:'',
     egatDefault:{name:'นายสิทธิพร กุลทรัพย์ศักดิ์', id:'565857', pos:'หรล5-ส.'},
@@ -1066,8 +1084,9 @@ function pickDept(code){
     var ZONE_DEFS=[['โซนแผนก 1','หถน1-ส.'],['โซนแผนก 2','หถน2-ส.'],['โซนแผนก 3','หถน3-ส.'],['โซนแผนก 4','หถน4-ส.']];
     var codeZone={};
     ZONE_DEFS.forEach(function(z){ var dz=DEPARTMENTS[z[1]]||{}; (dz.stations||[]).forEach(function(s){ if(codeZone[s.code]==null) codeZone[s.code]=z[0]; }); });
-    // เรียงโซนของแผนกตัวเองขึ้นก่อน แล้วตามด้วยโซนอื่น ๆ ตามลำดับ
-    var ownIdx=-1; for(var zi=0; zi<ZONE_DEFS.length; zi++){ if(ZONE_DEFS[zi][1]===code){ ownIdx=zi; break; } }
+    // เรียงโซนของแผนกตัวเองขึ้นก่อน (หรือโซนที่กำหนดใน zoneFirst) แล้วตามด้วยโซนอื่น ๆ
+    var priorityDept=code; var _dcur=DEPARTMENTS[code]||{}; if(_dcur.zoneFirst) priorityDept=_dcur.zoneFirst;
+    var ownIdx=-1; for(var zi=0; zi<ZONE_DEFS.length; zi++){ if(ZONE_DEFS[zi][1]===priorityDept){ ownIdx=zi; break; } }
     var ordered=(ownIdx>=0)?[ZONE_DEFS[ownIdx]].concat(ZONE_DEFS.filter(function(z,i){return i!==ownIdx;})):ZONE_DEFS.slice();
     function optOf(s){ return '<option value="'+s.code+'">'+s.code+' — '+s.label+'</option>'; }
     var html='<option value="">▼ เลือกสถานที่</option>';
