@@ -128,7 +128,7 @@
     <div><label>เลือกแผนก:</label>
       <select id="deptSel" class="minisel" onchange="pickDept(this.value)">
         <option value="">▼ เลือกแผนก</option>
-        <option>หถน1-ส.</option><option>หถน2-ส.</option><option>หถน3-ส.</option><option>หถน4-ส.</option>
+        <option>หถน1-ส.</option><option>หถน2-ส.</option><option>หถน3-ส.</option><option>หถน4-ส.</option><option>หรล5-ส.</option>
       </select>
     </div>
     <div><label>เลือกกรุ๊บทำงาน:</label>
@@ -154,7 +154,7 @@
       <div class="hd">1. ผู้ขออนุญาต</div>
       <div class="two">
         <div class="col l">
-          <div class="ctr">กรณีเป็น ผู้ปฏิบัติงาน กฟผ.</div>
+          <div class="ctr">กรณีเป็น ผู้ปฏิบัติงาน กฟผ. <select class="noprint" id="reqPersonSel" onchange="pickPerson(this.value)" style="font-family:inherit;font-size:12px;padding:2px 6px;border-radius:5px;border:1px solid #9bb;margin-left:4px;"><option value="">▼ เลือกผู้ปฏิบัติงาน</option></select></div>
           <div class="row"><span class="lbl">ข้าพเจ้า</span><input class="f grow" data-k="egat_name"><span class="lbl">เลขประจำตัว</span><input class="f" data-k="egat_id" style="width:70px;"></div>
           <div class="row"><span class="lbl">ตำแหน่ง</span><input class="f grow" data-k="egat_pos"><span class="lbl">แผนก</span><input class="f grow" data-k="egat_dept"></div>
           <div class="row"><span class="lbl">กอง</span><input class="f grow" data-k="egat_div"><span class="lbl">ฝ่าย</span><input class="f" data-k="egat_sec" style="width:60px;"><span class="lbl">โทร</span><input class="f grow" data-k="egat_tel"></div>
@@ -200,7 +200,7 @@
       <div class="pad note">(ต้องผ่านการอบรมเจ้าหน้าที่ความปลอดภัยในการทำงานระดับหัวหน้างาน หรือระดับเทคนิค หรือระดับเทคนิคขั้นสูง หรือระดับวิชาชีพ)</div>
       <div class="two">
         <div class="col l">
-          <div class="ctr">กรณีเป็น ผู้ปฏิบัติงาน กฟผ.</div>
+          <div class="ctr">กรณีเป็น ผู้ปฏิบัติงาน กฟผ. <select class="noprint" id="ctlPersonSel" onchange="pickCtlPerson(this.value)" style="font-family:inherit;font-size:12px;padding:2px 6px;border-radius:5px;border:1px solid #9bb;margin-left:4px;"><option value="">▼ เลือกผู้ควบคุมงาน</option></select></div>
           <div class="row"><span class="lbl">ชื่อ</span><input class="f grow" data-k="ctl_name"><span class="lbl">เลขประจำตัว</span><input class="f" data-k="ctl_id" style="width:70px;"></div>
           <div class="row"><span class="lbl">ตำแหน่ง</span><input class="f grow" data-k="ctl_pos"><span class="lbl">แผนก</span><input class="f grow" data-k="ctl_dept"></div>
           <div class="row"><span class="lbl">กอง</span><input class="f grow" data-k="ctl_div"><span class="lbl">ฝ่าย</span><input class="f" data-k="ctl_sec" style="width:55px;"><span class="lbl">โทร</span><input class="f grow" data-k="ctl_tel"></div>
@@ -927,9 +927,116 @@ var DEPARTMENTS = {
     authPos:{LS:'หน.สฟ.หล่มสัก',PE:'หน.สฟ.เพชรบูรณ์',BGS:'หน.สฟ.บึงสามพัน',NS:'หน.สฟ.นครสวรรค์',SLB:'หน.สฟ.สลกบาตร',MR:'หน.สฟ.มโนรมย์',TK2:'หน.สฟ.ตาคลี2',TTK:'หน.สฟ.ท่าตะโก',PC:'หน.สฟ.พิจิตร',BMN:'หน.สฟ.บางมูลนาก',HUW:'หน.สฟ.หัวหวาย'},
     authPosName:{}
   },
-  'หถน1-ส.': { div:'', sec:'', egatDefault:{}, workers:[], groups:{}, groupEgat:{}, groupCtrl:{}, stations:[], auth:{}, authPos:{}, authPosName:{} },
-  'หถน3-ส.': { div:'', sec:'', egatDefault:{}, workers:[], groups:{}, groupEgat:{}, groupCtrl:{}, stations:[], auth:{}, authPos:{}, authPosName:{} }
+  'หรล5-ส.': {
+    div:'กรป-ส.', sec:'อรค.', tel:'',
+    egatDefault:{name:'นายสิทธิพร กุลทรัพย์ศักดิ์', id:'565857', pos:'หรล5-ส.'},
+    workers:[
+      {name:'นายบรรลือ ตาจุมป่า', id:'476889', pos:'ช.8'},
+      {name:'นายสิทธิพร กุลทรัพย์ศักดิ์', id:'565857', pos:'หรล5-ส.'},
+      {name:'นายธานินทร์ เปรมทอง', id:'570931', pos:'ช.7'},
+      {name:'นายสิริชนม์ กอไพศาล', id:'592248', pos:'วศ.7'},
+      {name:'นายฐานันด์ หมื่นพวง', id:'595332', pos:'ช.6'},
+      {name:'นายไกรวิทย์ เดชะ', id:'595931', pos:'ช.5'},
+      {name:'นายชญานนท์ อะทุน', id:'598006', pos:'วศ.5'},
+      {name:'นายวรวิชญ์ แถวจันทร์', id:'598420', pos:'วศ.4'},
+      {name:'นายถาวริน โกสุมวัชราภรณ์', id:'598577', pos:'วศ.4'}
+    ],
+    groups:{}, groupEgat:{}, groupCtrl:{},
+    stations:[
+      {code:'CR',label:'สฟ.เชียงราย'},{code:'MCN',label:'สฟ.แม่จัน'},{code:'THG',label:'สฟ.เทิง'},
+      {code:'PY',label:'สฟ.พะเยา'},{code:'CM1',label:'สฟ.เชียงใหม่1'},{code:'CM2',label:'สฟ.เชียงใหม่2'},
+      {code:'CM3',label:'สฟ.เชียงใหม่3'},{code:'LN1',label:'สฟ.ลำพูน1'},{code:'LN2',label:'สฟ.ลำพูน2'},
+      {code:'LN3',label:'สฟ.ลำพูน3'},{code:'CHG',label:'สฟ.แม่แจ่ม'},{code:'MTG',label:'สฟ.แม่แตง'},
+      {code:'LS',label:'สฟ.หล่มสัก'},{code:'PE',label:'สฟ.เพชรบูรณ์'},{code:'BGS',label:'สฟ.บึงสามพัน'},
+      {code:'NS',label:'สฟ.นครสวรรค์'},{code:'SLB',label:'สฟ.สลกบาตร'},{code:'MR',label:'สฟ.มโนรมย์'},
+      {code:'TK2',label:'สฟ.ตาคลี2'},{code:'TTK',label:'สฟ.ท่าตะโก'},{code:'PC',label:'สฟ.พิจิตร'},
+      {code:'BMN',label:'สฟ.บางมูลนาก'},{code:'HUW',label:'สฟ.หัวหวาย'},
+      {code:'BB',label:'สฟ.เขื่อนภูมิพล'},{code:'KP',label:'สฟ.กำแพงเพชร'},{code:'LKB',label:'สฟ.ลานกระบือ'},
+      {code:'MS',label:'สฟ.แม่สอด'},{code:'PCK',label:'สฟ.ผาจุก'},{code:'PL1',label:'สฟ.พิษณุโลก 1'},
+      {code:'PL2',label:'สฟ.พิษณุโลก 2'},{code:'PPR',label:'สฟ.พรหมพิราม'},{code:'SL',label:'สฟ.สวรรคโลก'},
+      {code:'ST',label:'สฟ.สุโขทัย'},{code:'TA1',label:'สฟ.ตาก 1'},{code:'TA2',label:'สฟ.ตาก 2'},
+      {code:'UT',label:'สฟ.อุตรดิตถ์'},
+      {code:'LP1',label:'สฟ.ลำปาง 1'},{code:'LP2',label:'สฟ.ลำปาง 2'},{code:'MM2',label:'สฟ.แม่เมาะ2'},
+      {code:'MM3',label:'สฟ.แม่เมาะ 3'},{code:'MM4',label:'สฟ.แม่เมาะ 4'},{code:'MMM',label:'สฟ.เหมืองแม่เมาะ'},
+      {code:'TE',label:'สฟ.เถิน'},{code:'HC',label:'สนง.ลำปาง'},{code:'PR',label:'สฟ.แพร่'},
+      {code:'NA',label:'สฟ.น่าน'}
+    ],
+    auth:{
+      LP1:['นายสมชาย ภู่เรือน'], LP2:['นายวศิน โพธิพฤกษ์'], MM2:['นายบรรพต ปานตะละสี'],
+      MM3:['นายปณิธาน สารากร'], MM4:['นายโยธิน ครองราษฎร์'], MMM:['นายอนิรุต ทองนา'],
+      TE:['นายนัฐธวัฒน์ คงรัตน์'], HC:['นายจรัล วินเจริญ'], PR:['นายพร้อมพงศ์ กุณาหล่าย'],
+      NA:['นายพิษณุ สุเทปิน'],
+      CR:['นายวิทยา สมพงษ์'], MCN:['นายนทีกานต์ สุขโชติ'], THG:['นายนพดล โปธาพันธ์'],
+      PY:['นายสังวร กองทอง','นายชัยวัฒน์ สมโน'], CM1:['นายสุศักต์ สุภาพร'], CM2:['นายพิพัฒน์ ธัญญเจริญ'],
+      CM3:['นายสมศักดิ์ นันตา'], LN1:['นายเชาวลักษณ์ เมืองลือ'], LN2:['นายอดิศร วิสุทธิแพทย์'],
+      LN3:['นายมนัสวิน ปันสอน','นายศุภกฤษฏิ์ อายุมั่น','นายเอกชัย อินต๊ะศรี','นายสุทิชา ต้าวอินท์'],
+      CHG:['นายประดิษฐ์ แก้วก๋องมา'], MTG:['นายวรายุทธ์ บุญทวี'],
+      LS:['นายธวัชชัย สิงห์ตะโคตร'], PE:['นายกำพล ถาสืบ'], BGS:['นายเจริญ อินไข'],
+      NS:['นายอนุสรณ์ สุวรรณศิลป์'], SLB:[], MR:['นายเรืองศักดิ์ ศิลปชัย'],
+      TK2:['นายจิณณวัตร พาณิช'], TTK:['นายธีรรักษ์ ชาติวัลลภ'], PC:['นายพิพัฒน์ พิลึก'],
+      BMN:['นายภูวนัย ชอบช่ำ'], HUW:['นายแชรง ทองเกล็ด'],
+      BB:['นายมงคล ทวีบุญล้น'], KP:['นายราม หมั่นเขตกิจ'], LKB:['นายสุเณห์ พุ่มหมอก'],
+      MS:['นายอธิการ รอดหิรัญ'], PCK:['นายพงศกร ชมระกา'], PL1:['นายเจริญ วันแก้ว','นายสาธิต ขันกสิกรรม'],
+      PL2:['นายนพรัตน์ โพธิ์พยอม'], PPR:['นายพจนารถ รัศมี'], SL:['นายวันชนะ สุขช่วย'],
+      ST:['นายพงศกร อินจันทร์'], TA1:['นายอภิสิทธิ์ กล้องเสียง'], TA2:['นายเทวกฤต เพียรธรรม'],
+      UT:['นายประมง มีจันทร์','นายพงศกร ชมระกา']
+    },
+    authPos:{CR:'หน.สฟ.เชียงราย',MCN:'หน.สฟ.แม่จัน',THG:'หน.สฟ.เทิง',PY:'หน. สฟ.พะเยา',CM1:'หน.สฟ.เชียงใหม่1',CM2:'หน.สฟ.เชียงใหม่2',CM3:'หน.สฟ.เชียงใหม่3',LN1:'หน.สฟ.ลำพูน1',LN2:'หน.สฟ.ลำพูน2',LN3:'หน.สฟ.ลำพูน3',CHG:'หน.จอมทอง',MTG:'หน.สฟ.แม่แตง',LS:'หน.สฟ.หล่มสัก',PE:'หน.สฟ.เพชรบูรณ์',BGS:'หน.สฟ.บึงสามพัน',NS:'หน.สฟ.นครสวรรค์',SLB:'หน.สฟ.สลกบาตร',MR:'หน.สฟ.มโนรมย์',TK2:'หน.สฟ.ตาคลี2',TTK:'หน.สฟ.ท่าตะโก',PC:'หน.สฟ.พิจิตร',BMN:'หน.สฟ.บางมูลนาก',HUW:'หน.สฟ.หัวหวาย',BB:'หน.สฟ.เขื่อนภูมิพล',KP:'หน.สฟ.กำแพงเพชร',LKB:'หน.สฟ.ลานกระบือ',MS:'หน.สฟ.แม่สอด',PCK:'หน.สฟ.ผาจุก',PL1:'หน.สฟ.พิษณุโลก 1',PL2:'หน.สฟ.พิษณุโลก 2',PPR:'หน.สฟ.พรหมพิราม',SL:'หน.สฟ.สวรรคโลก',ST:'หน.สฟ.สุโขทัย',TA1:'หน.สฟ.ตาก 1',TA2:'หน.สฟ.ตาก 2',UT:'หน.สฟ.อุตรดิตถ์',LP1:'หน.สฟ.ลำปาง 1',LP2:'หน.สฟ.ลำปาง 2',MM2:'หน.สฟ.แม่เมาะ2',MM3:'หน.สฟ.แม่เมาะ 3',MM4:'หน.สฟ.แม่เมาะ 4',MMM:'หน.สฟ.เหมืองแม่เมาะ',TE:'หน.สฟ.เถิน',HC:'หน.สฟ.ห้างฉัตร',PR:'หน.สฟ.แพร่',NA:'หน.สฟ.น่าน'},
+    authPosName:{'นายชัยวัฒน์ สมโน':'ทนท.หน. สฟ.พะเยา','นายศุภกฤษฏิ์ อายุมั่น':'ทนท.หน. สฟ.ลำพูน 3','นายเอกชัย อินต๊ะศรี':'ทนท.หน. สฟ.ลำพูน 3','นายสุทิชา ต้าวอินท์':'ทนท.หน. สฟ.ลำพูน 3'}
+  },
+  'หถน1-ส.': {
+    div:'', sec:'', tel:'',
+    egatDefault:{}, workers:[], groups:{}, groupEgat:{}, groupCtrl:{},
+    stations:[
+      {code:'BB',label:'สฟ.เขื่อนภูมิพล'},{code:'KP',label:'สฟ.กำแพงเพชร'},{code:'LKB',label:'สฟ.ลานกระบือ'},
+      {code:'MS',label:'สฟ.แม่สอด'},{code:'PCK',label:'สฟ.ผาจุก'},{code:'PL1',label:'สฟ.พิษณุโลก 1'},
+      {code:'PL2',label:'สฟ.พิษณุโลก 2'},{code:'PPR',label:'สฟ.พรหมพิราม'},{code:'SL',label:'สฟ.สวรรคโลก'},
+      {code:'ST',label:'สฟ.สุโขทัย'},{code:'TA1',label:'สฟ.ตาก 1'},{code:'TA2',label:'สฟ.ตาก 2'},
+      {code:'UT',label:'สฟ.อุตรดิตถ์'}
+    ],
+    auth:{
+      BB:['นายมงคล ทวีบุญล้น'], KP:['นายราม หมั่นเขตกิจ'], LKB:['นายสุเณห์ พุ่มหมอก'],
+      MS:['นายอธิการ รอดหิรัญ'], PCK:['นายพงศกร ชมระกา'], PL1:['นายเจริญ วันแก้ว','นายสาธิต ขันกสิกรรม'],
+      PL2:['นายนพรัตน์ โพธิ์พยอม'], PPR:['นายพจนารถ รัศมี'], SL:['นายวันชนะ สุขช่วย'],
+      ST:['นายพงศกร อินจันทร์'], TA1:['นายอภิสิทธิ์ กล้องเสียง'], TA2:['นายเทวกฤต เพียรธรรม'],
+      UT:['นายประมง มีจันทร์','นายพงศกร ชมระกา']
+    },
+    authPos:{BB:'หน.สฟ.เขื่อนภูมิพล',KP:'หน.สฟ.กำแพงเพชร',LKB:'หน.สฟ.ลานกระบือ',MS:'หน.สฟ.แม่สอด',PCK:'หน.สฟ.ผาจุก',PL1:'หน.สฟ.พิษณุโลก 1',PL2:'หน.สฟ.พิษณุโลก 2',PPR:'หน.สฟ.พรหมพิราม',SL:'หน.สฟ.สวรรคโลก',ST:'หน.สฟ.สุโขทัย',TA1:'หน.สฟ.ตาก 1',TA2:'หน.สฟ.ตาก 2',UT:'หน.สฟ.อุตรดิตถ์'},
+    authPosName:{}
+  },
+  'หถน3-ส.': {
+    div:'', sec:'', tel:'',
+    egatDefault:{}, workers:[], groups:{}, groupEgat:{}, groupCtrl:{},
+    stations:[
+      {code:'LP1',label:'สฟ.ลำปาง 1'},{code:'LP2',label:'สฟ.ลำปาง 2'},{code:'MM2',label:'สฟ.แม่เมาะ2'},
+      {code:'MM3',label:'สฟ.แม่เมาะ 3'},{code:'MM4',label:'สฟ.แม่เมาะ 4'},{code:'MMM',label:'สฟ.เหมืองแม่เมาะ'},
+      {code:'TE',label:'สฟ.เถิน'},{code:'HC',label:'สนง.ลำปาง'},{code:'PR',label:'สฟ.แพร่'},
+      {code:'NA',label:'สฟ.น่าน'}
+    ],
+    auth:{
+      LP1:['นายสมชาย ภู่เรือน'], LP2:['นายวศิน โพธิพฤกษ์'], MM2:['นายบรรพต ปานตะละสี'],
+      MM3:['นายปณิธาน สารากร'], MM4:['นายโยธิน ครองราษฎร์'], MMM:['นายอนิรุต ทองนา'],
+      TE:['นายนัฐธวัฒน์ คงรัตน์'], HC:['นายจรัล วินเจริญ'], PR:['นายพร้อมพงศ์ กุณาหล่าย'],
+      NA:['นายพิษณุ สุเทปิน']
+    },
+    authPos:{LP1:'หน.สฟ.ลำปาง 1',LP2:'หน.สฟ.ลำปาง 2',MM2:'หน.สฟ.แม่เมาะ2',MM3:'หน.สฟ.แม่เมาะ 3',MM4:'หน.สฟ.แม่เมาะ 4',MMM:'หน.สฟ.เหมืองแม่เมาะ',TE:'หน.สฟ.เถิน',HC:'หน.สฟ.ห้างฉัตร',PR:'หน.สฟ.แพร่',NA:'หน.สฟ.น่าน'},
+    authPosName:{}
+  }
 };
+
+/* ชุดสถานี + ผู้อนุญาตรวมทุกโซน (global) — ให้ทุกแผนกเลือกข้ามโซนได้ */
+var ZONE_ORDER=['หถน1-ส.','หถน2-ส.','หถน3-ส.','หถน4-ส.'];
+var GLOBAL_STATIONS=[], GLOBAL_AUTH={}, GLOBAL_AUTHPOS={}, GLOBAL_AUTHPOSNAME={};
+(function(){
+  var seen={};
+  ZONE_ORDER.forEach(function(dc){
+    var d=DEPARTMENTS[dc]||{};
+    (d.stations||[]).forEach(function(s){ if(!seen[s.code]){ seen[s.code]=1; GLOBAL_STATIONS.push(s); } });
+    var a=d.auth||{}; for(var k in a){ if(!(k in GLOBAL_AUTH)) GLOBAL_AUTH[k]=a[k]; }
+    var ap=d.authPos||{}; for(var k2 in ap){ if(!(k2 in GLOBAL_AUTHPOS)) GLOBAL_AUTHPOS[k2]=ap[k2]; }
+    var apn=d.authPosName||{}; for(var k3 in apn){ GLOBAL_AUTHPOSNAME[k3]=apn[k3]; }
+  });
+})();
 
 /* ตัวแปรชุดของแผนกที่เลือกอยู่ (ตั้งค่าโดย pickDept) */
 var CUR_DEPT='';
@@ -948,14 +1055,35 @@ function pickDept(code){
   WORKERS=(d.workers||[]).map(function(w){ return {name:w.name,id:w.id,pos:w.pos,unit:code}; });
   PERSON_OPTIONS='<option value="">— เลือกชื่อ —</option>'+WORKERS.map(function(w,i){ return '<option value="'+i+'">'+(i+1)+'. '+w.name+'</option>'; }).join('');
   GROUPS=d.groups||{}; GROUP_EGAT=d.groupEgat||{}; GROUP_CTRL=d.groupCtrl||{};
-  AUTH_BY_STATION=d.auth||{}; STATIONS=d.stations||[];
-  SP_AUTH_POS_STATION=d.authPos||{}; SP_AUTH_POS_NAME=d.authPosName||{};
+  AUTH_BY_STATION=GLOBAL_AUTH; STATIONS=GLOBAL_STATIONS;
+  SP_AUTH_POS_STATION=GLOBAL_AUTHPOS; SP_AUTH_POS_NAME=GLOBAL_AUTHPOSNAME;
   var ed=d.egatDefault||{};
   EGAT_DEFAULTS={ egat_name:ed.name||'', egat_id:ed.id||'', egat_pos:ed.pos||'', egat_dept:code, egat_div:d.div||'', egat_sec:d.sec||'', egat_tel:d.tel||'' };
   var gs=document.getElementById('groupSel');
   if(gs) gs.innerHTML='<option value="">▼ เลือกกรุ๊บ</option>'+Object.keys(GROUPS).map(function(g){ return '<option>'+g+'</option>'; }).join('');
   var ss=document.getElementById('stationSel');
-  if(ss) ss.innerHTML='<option value="">▼ เลือกสถานที่</option>'+STATIONS.map(function(s){ return '<option value="'+s.code+'">'+s.code+' — '+s.label+'</option>'; }).join('');
+  if(ss){
+    var ZONE_DEFS=[['โซนแผนก 1','หถน1-ส.'],['โซนแผนก 2','หถน2-ส.'],['โซนแผนก 3','หถน3-ส.'],['โซนแผนก 4','หถน4-ส.']];
+    var codeZone={};
+    ZONE_DEFS.forEach(function(z){ var dz=DEPARTMENTS[z[1]]||{}; (dz.stations||[]).forEach(function(s){ if(codeZone[s.code]==null) codeZone[s.code]=z[0]; }); });
+    // เรียงโซนของแผนกตัวเองขึ้นก่อน แล้วตามด้วยโซนอื่น ๆ ตามลำดับ
+    var ownIdx=-1; for(var zi=0; zi<ZONE_DEFS.length; zi++){ if(ZONE_DEFS[zi][1]===code){ ownIdx=zi; break; } }
+    var ordered=(ownIdx>=0)?[ZONE_DEFS[ownIdx]].concat(ZONE_DEFS.filter(function(z,i){return i!==ownIdx;})):ZONE_DEFS.slice();
+    function optOf(s){ return '<option value="'+s.code+'">'+s.code+' — '+s.label+'</option>'; }
+    var html='<option value="">▼ เลือกสถานที่</option>';
+    ordered.forEach(function(z){
+      var items=STATIONS.filter(function(s){ return codeZone[s.code]===z[0]; });
+      if(items.length) html+='<optgroup label="'+z[0]+'">'+items.map(optOf).join('')+'</optgroup>';
+    });
+    var other=STATIONS.filter(function(s){ return codeZone[s.code]==null; });
+    if(other.length) html+='<optgroup label="อื่นๆ">'+other.map(optOf).join('')+'</optgroup>';
+    ss.innerHTML=html;
+  }
+  var _personOpts='<option value="">— เลือกชื่อ —</option>'+WORKERS.map(function(w,i){ return '<option value="'+i+'">'+(i+1)+'. '+w.name+' ('+w.pos+')</option>'; }).join('');
+  var rps=document.getElementById('reqPersonSel');
+  if(rps) rps.innerHTML='<option value="">▼ เลือกผู้ปฏิบัติงาน</option>'+_personOpts.replace('<option value="">— เลือกชื่อ —</option>','');
+  var cps=document.getElementById('ctlPersonSel');
+  if(cps) cps.innerHTML='<option value="">▼ เลือกผู้ควบคุมงาน</option>'+_personOpts.replace('<option value="">— เลือกชื่อ —</option>','');
   var apk=document.getElementById('authPick'); if(apk) apk.innerHTML='';
   setVal('owner12_name',''); setVal('owner14_name',''); setVal('p3name2','');
   buildTables();
@@ -1037,7 +1165,41 @@ function pickGroup(g){
   // ข้อ 3 ผู้ควบคุมงาน ตามกรุ๊บ
   var ctrl=GROUP_CTRL[g]; var dd=DEPARTMENTS[CUR_DEPT]||{};
   if(ctrl){ setVal('ctl_name',ctrl.name); setVal('ctl_id',ctrl.id); setVal('ctl_pos',ctrl.pos); setVal('ctl_dept',CUR_DEPT); setVal('ctl_div',dd.div||''); setVal('ctl_sec',dd.sec||''); syncController(); }
+  // จำกัดช่อง "เลือกผู้ปฏิบัติงาน" (กรอบ 1) ให้เหลือเฉพาะรายชื่อในกรุ๊บนี้
+  var idxByName={}; WORKERS.forEach(function(w,i){ idxByName[w.name]=i; });
+  var _grpOpts=names.map(function(nm){ var i=idxByName[nm]; if(i==null) return ''; var w=WORKERS[i]; return '<option value="'+i+'">'+nm+' ('+w.pos+')</option>'; }).join('');
+  var rps=document.getElementById('reqPersonSel');
+  if(rps) rps.innerHTML='<option value="">▼ เลือกผู้ปฏิบัติงาน (กรุ๊บ '+g+')</option>'+_grpOpts;
+  var cps=document.getElementById('ctlPersonSel');
+  if(cps) cps.innerHTML='<option value="">▼ เลือกผู้ควบคุมงาน (กรุ๊บ '+g+')</option>'+_grpOpts;
   toast('เลือกกรุ๊บ '+g+' — เติม ผู้ขออนุญาต + ผู้ควบคุมงาน + รายชื่อ '+names.length+' คน');
+}
+
+/* ============ เลือกผู้ปฏิบัติงาน (กรอบ 1) → เติมกรอบ 1 + กรอบ 3 เป็นคนเดียวกัน ============ */
+function pickPerson(idx){
+  if(idx==='') return;
+  var w=WORKERS[idx]; if(!w) return;
+  var dd=DEPARTMENTS[CUR_DEPT]||{};
+  // กรอบ 1 : ผู้ขออนุญาต
+  setVal('egat_name',w.name); setVal('egat_id',w.id); setVal('egat_pos',w.pos);
+  setVal('egat_dept',CUR_DEPT); setVal('egat_div',dd.div||''); setVal('egat_sec',dd.sec||''); setVal('egat_tel',dd.tel||'');
+  syncReq();
+  // กรอบ 3 : ผู้ควบคุมงาน (คนเดียวกัน)
+  setVal('ctl_name',w.name); setVal('ctl_id',w.id); setVal('ctl_pos',w.pos);
+  setVal('ctl_dept',CUR_DEPT); setVal('ctl_div',dd.div||''); setVal('ctl_sec',dd.sec||'');
+  syncController();
+  toast('เลือก '+w.name+' — เติมกรอบ 1 (ผู้ขออนุญาต) และกรอบ 3 (ผู้ควบคุมงาน)');
+}
+
+/* ============ เลือกผู้ควบคุมงาน (กรอบ 3) โดยเฉพาะ — ไม่กระทบกรอบ 1 ============ */
+function pickCtlPerson(idx){
+  if(idx==='') return;
+  var w=WORKERS[idx]; if(!w) return;
+  var dd=DEPARTMENTS[CUR_DEPT]||{};
+  setVal('ctl_name',w.name); setVal('ctl_id',w.id); setVal('ctl_pos',w.pos);
+  setVal('ctl_dept',CUR_DEPT); setVal('ctl_div',dd.div||''); setVal('ctl_sec',dd.sec||'');
+  syncController();
+  toast('เลือกผู้ควบคุมงาน '+w.name);
 }
 
 /* ============ เลือกสถานที่ → ผู้อนุญาต ============ */
