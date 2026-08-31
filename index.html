@@ -112,6 +112,8 @@
   /* ===== เซ็นออนไลน์ (ลายเซ็น) ===== */
   .sigbox{display:inline-block;flex:1 1 60px;min-width:90px;height:30px;border-bottom:1px solid #000;position:relative;cursor:pointer;vertical-align:bottom;}
   .sigbox img{height:28px;max-width:100%;display:block;margin:0 auto;}
+  .sigcell{display:block;width:100%;height:24px;min-width:0;border-bottom:0;}
+  .sigcell img{height:22px;}
   .sigbox .sighint{position:absolute;left:4px;bottom:3px;font-size:10px;color:#8aa;white-space:nowrap;}
   #sigModal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99999;display:none;align-items:center;justify-content:center;}
   #sigModal.on{display:flex;}
@@ -1208,6 +1210,7 @@ function buildTables(){
     tr.innerHTML=html;
     (n<=P2_ROWS?b1:b2).appendChild(tr);
   }
+  if(window.__enhanceSig) window.__enhanceSig();
 }
 function cellInput(cls,i){return document.querySelector(cls+'[data-r="'+i+'"]');}
 function setRow(i,w){ cellInput('.rn',i).value=w.name; cellInput('.ri',i).value=w.id; cellInput('.rp',i).value=w.pos; cellInput('.ru',i).value=w.unit; }
@@ -1457,7 +1460,7 @@ document.addEventListener('change', syncF008);
   document.body.appendChild(modal);
   var canvas=modal.querySelector('#sigCanvas'), ctx=null, drawing=false, drew=false, target=null, last=null;
   function setup(){ var r=canvas.getBoundingClientRect(); canvas.width=Math.round(r.width*2); canvas.height=Math.round(r.height*2);
-    ctx=canvas.getContext('2d'); ctx.setTransform(2,0,0,2,0,0); ctx.lineWidth=2.2; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#111'; }
+    ctx=canvas.getContext('2d'); ctx.setTransform(2,0,0,2,0,0); ctx.lineWidth=2.2; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#0a34d6'; }
   function P(e){ var r=canvas.getBoundingClientRect(); var t=(e.touches&&e.touches[0])?e.touches[0]:e; return {x:t.clientX-r.left,y:t.clientY-r.top}; }
   function down(e){ drawing=true; last=P(e); e.preventDefault(); }
   function move(e){ if(!drawing)return; var p=P(e); ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last=p; drew=true; e.preventDefault(); }
@@ -1474,19 +1477,26 @@ document.addEventListener('change', syncF008);
     modal.classList.remove('on'); target=null;
   };
   modal.addEventListener('click',function(e){ if(e.target===modal){ modal.classList.remove('on'); target=null; } });
-  function enhance(){
-    var rows=document.querySelectorAll('div.row, div.sign');
-    rows.forEach(function(r){
-      var lbl=r.querySelector('.lbl'); if(!lbl || lbl.textContent.trim()!=='ลงชื่อ') return;
-      var inp=r.querySelector('input.f'); if(!inp || inp.getAttribute('data-sigdone')) return;
-      inp.setAttribute('data-sigdone','1');
-      var box=document.createElement('span'); box.className='sigbox';
-      box.innerHTML='<span class="sighint">แตะเพื่อเซ็น</span>';
-      var st=inp.getAttribute('style')||''; var m=st.match(/width:\s*([0-9]+%)/); if(m){ box.style.flex='0 0 '+m[1]; box.style.minWidth='0'; }
-      box.addEventListener('click',function(){ openFor(box); });
-      inp.parentNode.insertBefore(box, inp); inp.style.display='none';
-    });
+  function wrap(inp, cls, hint){
+    if(!inp || inp.getAttribute('data-sigdone')) return;
+    inp.setAttribute('data-sigdone','1');
+    var box=document.createElement('span'); box.className=cls;
+    box.innerHTML='<span class="sighint">'+hint+'</span>';
+    box.addEventListener('click',function(){ openFor(box); });
+    inp.parentNode.insertBefore(box, inp); inp.style.display='none';
+    return box;
   }
+  function enhance(){
+    // เส้นลงชื่อในฟอร์ม
+    document.querySelectorAll('div.row, div.sign').forEach(function(r){
+      var lbl=r.querySelector('.lbl'); if(!lbl || lbl.textContent.trim()!=='ลงชื่อ') return;
+      var inp=r.querySelector('input.f'); var box=wrap(inp,'sigbox','แตะเพื่อเซ็น'); if(!box) return;
+      var st=inp.getAttribute('style')||''; var m=st.match(/width:\s*([0-9]+%)/); if(m){ box.style.flex='0 0 '+m[1]; box.style.minWidth='0'; }
+    });
+    // ช่องลายเซ็นในตารางรายชื่อผู้ปฏิบัติงาน (.rs)
+    document.querySelectorAll('input.rs').forEach(function(inp){ wrap(inp,'sigbox sigcell','เซ็น'); });
+  }
+  window.__enhanceSig=enhance;
   enhance();
 })();
 </script>
