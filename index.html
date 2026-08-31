@@ -108,6 +108,20 @@
     .foot{font-size:10.5px;}
     @page{size:A4;margin:0;}
   }
+
+  /* ===== เซ็นออนไลน์ (ลายเซ็น) ===== */
+  .sigbox{display:inline-block;flex:1 1 60px;min-width:90px;height:30px;border-bottom:1px solid #000;position:relative;cursor:pointer;vertical-align:bottom;}
+  .sigbox img{height:28px;max-width:100%;display:block;margin:0 auto;}
+  .sigbox .sighint{position:absolute;left:4px;bottom:3px;font-size:10px;color:#8aa;white-space:nowrap;}
+  #sigModal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99999;display:none;align-items:center;justify-content:center;}
+  #sigModal.on{display:flex;}
+  #sigModal .sbox{background:#fff;border-radius:12px;padding:16px;width:min(94vw,560px);box-shadow:0 10px 40px rgba(0,0,0,.3);}
+  #sigModal .stitle{font-weight:700;margin-bottom:8px;}
+  #sigCanvas{width:100%;height:220px;border:1px dashed #9bb;border-radius:8px;background:#fff;touch-action:none;display:block;}
+  .sigbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap;}
+  .sigbtns button{padding:9px 16px;border-radius:8px;border:1px solid #9bb;background:#fff;cursor:pointer;font-family:inherit;font-size:14px;}
+  .sigbtns button.pri{background:#2b6cb0;color:#fff;border-color:#2b6cb0;}
+  @media print{ .sigbox{border-bottom:1px solid #000;cursor:default;} .sigbox .sighint{display:none;} #sigModal{display:none !important;} }
 </style>
 </head>
 <body>
@@ -844,6 +858,51 @@
     <div class="sec"><div class="pad note"><b>การเก็บเอกสารหลังปฏิบัติงาน</b><br>ต้นฉบับ : เก็บที่หน่วยงานผู้อนุญาตเข้าทำงานเจ้าของพื้นที่</div></div>
     <div class="foot"><div>SP-รวส.-007/F010</div><div>(หน้า2/2)</div><div>รองผู้ว่าการปฏิบัติการระบบส่ง</div></div></div></div>
 
+<!-- F011 (SP-รวส.-007/F011) แทรกเมื่อติ๊กข้อ 2.9 — หน้าเดียว -->
+<div class="page f8pg spf-f011" hidden><div class="f8note">การขออนุญาตครั้งละไม่เกิน 1 วัน : แนบไว้กับ work permit ตลอดเวลา</div><div class="pad" style="text-align:center;font-weight:700;">แบบฟอร์มขออนุญาตงานเฉพาะอย่าง :</div><div class="pad" style="text-align:center;border-top:0;"><label class="ck"><input type="checkbox">งานระบบควบคุม</label> <label class="ck"><input type="checkbox">งานระบบสื่อสาร</label> <label class="ck"><input type="checkbox">งานระบบคอมพิวเตอร์</label> <label class="ck"><input type="checkbox">งานระบบป้องกันและมาตรวัด</label></div><div class="pad" style="text-align:center;border-top:0;">อ้างอิงหมายเลข work permit ที่ขออนุญาต <input class="f" data-k="f011_wp" readonly style="width:190px;text-align:center;"></div><div class="outer"><table class="f8"><thead><tr><th colspan="2">มาตรการความปลอดภัย</th><th>การปฏิบัติตามมาตรการ</th></tr></thead><tbody><tr><td class="no">1.</td><td>มีขั้นตอนการปฏิบัติงานทุกขั้นตอนตั้งแต่เริ่มจนเสร็จงาน และอธิบายให้ผู้ร่วมงานทราบ</td><td class="act"><label class="ck"><input type="checkbox" checked>ปฏิบัติ</label> <label class="ck"><input type="checkbox">ไม่เกี่ยวข้อง</label></td></tr><tr><td class="no">2.</td><td>ต้องได้รับคำยืนยันจากเจ้าของสถานที่ก่อนทำงาน</td><td class="act"><label class="ck"><input type="checkbox" checked>ปฏิบัติ</label> <label class="ck"><input type="checkbox">ไม่เกี่ยวข้อง</label></td></tr><tr><td class="no">3.</td><td>ต้องปฏิบัติตามกฎความปลอดภัยหรือกฎเฉพาะงาน ที่กำหนดไว้ในมาตรฐานงานบำรุงรักษาของอุปกรณ์แต่ละชนิดและการใช้อุปกรณ์คุ้มครองความปลอดภัยส่วนบุคคล</td><td class="act"><label class="ck"><input type="checkbox" checked>ปฏิบัติ</label> <label class="ck"><input type="checkbox">ไม่เกี่ยวข้อง</label></td></tr><tr><td class="no">4.</td><td>แขวน Tag สำหรับงานบำรุงรักษา</td><td class="act"><label class="ck"><input type="checkbox" checked>ปฏิบัติ</label> <label class="ck"><input type="checkbox">ไม่เกี่ยวข้อง</label></td></tr><tr><td class="no">5.</td><td>มีหัวหน้างานหรือ Safety Inspector คอยดูแลการปฏิบัติงานให้เป็นไปตามลำดับขั้นตอนโดยเคร่งครัด</td><td class="act"><label class="ck"><input type="checkbox" checked>ปฏิบัติ</label> <label class="ck"><input type="checkbox">ไม่เกี่ยวข้อง</label></td></tr><tr><td class="no">6.</td><td>หลังการปฏิบัติงานเสร็จ ได้ตรวจสอบอุปกรณ์ที่บำรุงรักษาให้อยู่ในสภาพพร้อมใช้งาน</td><td class="act"><label class="ck"><input type="checkbox" checked>ปฏิบัติ</label> <label class="ck"><input type="checkbox">ไม่เกี่ยวข้อง</label></td></tr></tbody></table><div class="pad" style="border-top:1px solid #000;">ต้องสวมใส่อุปกรณ์คุ้มครองความปลอดภัยส่วนบุคคล ที่เหมาะสมกับลักษณะงาน ดังนี้ :<div style="margin-top:2px;"><label class="ck"><input type="checkbox">อุปกรณ์ป้องกันศีรษะ</label> <label class="ck"><input type="checkbox">อุปกรณ์ป้องกันตา</label> <label class="ck"><input type="checkbox">ถุงมือหนัง</label> <label class="ck"><input type="checkbox">รองเท้านิรภัย</label><br><label class="ck"><input type="checkbox">อุปกรณ์ป้องกันการตกจากที่สูง เช่น เข็มขัดนิรภัย / เชือกช่วยชีวิต</label> <label class="ck"><input type="checkbox">อื่นๆ</label><span style="border-bottom:1px dotted #000;display:inline-block;min-width:150px;">&nbsp;</span></div></div>
+    <div class="sec"><div class="hd">หารือมาตรการความปลอดภัย และลงนามก่อนปฏิบัติงาน</div>
+      <div class="two">
+        <div class="col l">
+          <div style="font-weight:700;">ผู้ขออนุญาต</div>
+          <div class="note">ข้าพเจ้าได้แจ้งรายละเอียด และกำหนดมาตรการความปลอดภัยสำหรับปฏิบัติงานนี้ จึงขออนุญาตปฏิบัติงาน</div>
+          <div class="row"><span class="lbl">วันที่</span><input class="f grow" data-k="f011_req_date" readonly></div>
+          <div class="row"><span class="lbl">ตั้งแต่ เวลา</span><input class="f" data-k="f011_tfrom" readonly style="width:60px;text-align:center;"><span class="lbl">น. ถึง เวลา</span><input class="f" data-k="f011_tto" readonly style="width:60px;text-align:center;"><span class="lbl">น.</span></div>
+          <div class="sign row"><span class="lbl">ลงชื่อ</span><input class="f grow"></div>
+          <div class="row" style="justify-content:center;">(<input class="f" data-k="f011_req_name" readonly style="width:60%;text-align:center;">) <input class="f" data-k="f011_req_signdate" readonly style="width:80px;text-align:center;"></div>
+        </div>
+        <div class="col">
+          <div style="font-weight:700;">ผู้ควบคุมงาน</div>
+          <div class="note">ข้าพเจ้าได้ตรวจสอบมาตรการความปลอดภัยตามที่กำหนด และตรวจสอบพื้นที่ ก่อนเริ่มงาน แล้ว พิจารณาเห็นว่ามีความปลอดภัยที่จะปฏิบัติงานได้ และจะดำเนินการควบคุมงานให้เป็นไปตามมาตรการความปลอดภัยที่ได้กำหนดไว้รวมถึงบันทึกผลการปฏิบัติตามมาตรการที่กำหนดขึ้น</div>
+          <div class="sign row"><span class="lbl">ลงชื่อ</span><input class="f grow"></div>
+          <div class="row" style="justify-content:center;">(<input class="f" data-k="f011_ctl_name" readonly style="width:60%;text-align:center;">) <input class="f" data-k="f011_ctl_signdate" readonly style="width:80px;text-align:center;"></div>
+        </div>
+      </div>
+      <div class="pad" style="border-top:1px solid #000;">
+        <div style="font-weight:700;">ผู้อนุญาต</div>
+        <div class="note">ข้าพเจ้าได้ตรวจสอบรายการข้างต้นด้วยตนเองและพิจารณาเห็นว่ามีความปลอดภัยเพียงพอที่จะปฏิบัติงานได้</div>
+        <div class="sign row" style="justify-content:center;"><span class="lbl">ลงชื่อ</span><input class="f" style="width:40%;"></div>
+        <div class="row" style="justify-content:center;">(<input class="f" data-k="f011_owner_name" readonly style="width:45%;text-align:center;">) <input class="f" data-k="f011_owner_signdate" readonly style="width:80px;text-align:center;"> เวลา <input class="f" data-k="f011_owner_time" readonly style="width:60px;text-align:center;"> น.</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="two">
+        <div class="col l">
+          <div class="hd" style="border:0;background:#c9c9c9;margin:-4px -8px 4px;">ขอแจ้งปิดงาน</div>
+          <div class="row"><span class="lbl">แล้วเสร็จเมื่อ</span><input class="f" data-k="f011_close_date" readonly style="width:120px;"><span class="lbl">เวลา</span><input class="f" data-k="f011_close_time" readonly style="width:55px;"><span class="lbl">น.</span></div>
+          <div class="note">และได้จัดสถานที่ทำงานให้มีสภาพเรียบร้อยแล้ว</div>
+          <div class="sign row"><span class="lbl">ลงชื่อ</span><input class="f grow"><span class="lbl">ผู้ขออนุญาต หรือผู้ควบคุมงาน</span></div>
+          <div class="row" style="justify-content:center;">(<input class="f" data-k="f011_close_name" readonly style="width:55%;text-align:center;">) <input class="f" data-k="f011_close_signdate" readonly style="width:80px;text-align:center;"></div>
+        </div>
+        <div class="col">
+          <div class="hd" style="border:0;background:#c9c9c9;margin:-4px -8px 4px;">การพิจารณาปิดงาน</div>
+          <div class="row"><span class="lbl">พิจารณาปิดงานให้ เมื่อ</span><input class="f" data-k="f011_cclose_date" readonly style="width:100px;"><span class="lbl">เวลา</span><input class="f" data-k="f011_cclose_time" readonly style="width:55px;"><span class="lbl">น.</span></div>
+          <div class="sign row"><span class="lbl">ลงชื่อ</span><input class="f grow"><span class="lbl">ผู้อนุญาตเข้าทำงานเจ้าของพื้นที่</span></div>
+          <div class="row" style="justify-content:center;">(<input class="f" data-k="f011_owner14_name" readonly style="width:55%;text-align:center;">) <input class="f" data-k="f011_owner14_signdate" readonly style="width:80px;text-align:center;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec"><div class="pad note"><b>การเก็บเอกสารหลังปฏิบัติงาน</b><br>ต้นฉบับ : เก็บที่หน่วยงานผู้อนุญาตเข้าทำงานเจ้าของพื้นที่</div></div>
+<div class="foot"><div>SP-รวส.-007/F011</div><div>(หน้า1)</div><div>รองผู้ว่าการปฏิบัติการระบบส่ง</div></div></div></div>
 <div id="toast"></div>
 
 <script>
@@ -1346,7 +1405,7 @@ document.addEventListener('change', syncF008);
   "use strict";
   var SPMAP = { sp3:{cls:'spf-f005',f:'f005'}, sp4:{cls:'spf-f006',f:'f006'},
                 sp5:{cls:'spf-f007',f:'f007'}, sp7:{cls:'spf-f009',f:'f009'},
-                sp8:{cls:'spf-f010',f:'f010'} };
+                sp8:{cls:'spf-f010',f:'f010'}, sp9:{cls:'spf-f011',f:'f011'} };
   function tstr(pfx){ var h=getVal(pfx+'_h'), m=getVal(pfx+'_m'); return (h&&m)?(h+':'+m):''; }
   function put(f,key,val){ setVal(f+'_'+key, val); }
 
@@ -1383,6 +1442,52 @@ document.addEventListener('change', syncF008);
   document.addEventListener('input', syncForms);
   document.addEventListener('change', syncForms);
   refresh();
+})();
+</script>
+<script>
+/* ===== เซ็นออนไลน์: แตะเส้นลงชื่อเพื่อวาดลายเซ็น ===== */
+(function(){
+  "use strict";
+  var modal=document.createElement('div'); modal.id='sigModal'; modal.className='noprint';
+  modal.innerHTML='<div class="sbox"><div class="stitle">เซ็นลายเซ็น — วาดในกรอบด้านล่าง</div>'
+    +'<canvas id="sigCanvas"></canvas>'
+    +'<div class="sigbtns"><button type="button" id="sigClear">ล้าง</button>'
+    +'<button type="button" id="sigCancel">ยกเลิก</button>'
+    +'<button type="button" id="sigOk" class="pri">บันทึกลายเซ็น</button></div></div>';
+  document.body.appendChild(modal);
+  var canvas=modal.querySelector('#sigCanvas'), ctx=null, drawing=false, drew=false, target=null, last=null;
+  function setup(){ var r=canvas.getBoundingClientRect(); canvas.width=Math.round(r.width*2); canvas.height=Math.round(r.height*2);
+    ctx=canvas.getContext('2d'); ctx.setTransform(2,0,0,2,0,0); ctx.lineWidth=2.2; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#111'; }
+  function P(e){ var r=canvas.getBoundingClientRect(); var t=(e.touches&&e.touches[0])?e.touches[0]:e; return {x:t.clientX-r.left,y:t.clientY-r.top}; }
+  function down(e){ drawing=true; last=P(e); e.preventDefault(); }
+  function move(e){ if(!drawing)return; var p=P(e); ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last=p; drew=true; e.preventDefault(); }
+  function up(){ drawing=false; }
+  canvas.addEventListener('mousedown',down); canvas.addEventListener('mousemove',move); window.addEventListener('mouseup',up);
+  canvas.addEventListener('touchstart',down,{passive:false}); canvas.addEventListener('touchmove',move,{passive:false}); canvas.addEventListener('touchend',up);
+  function clearCanvas(){ if(ctx) ctx.clearRect(0,0,canvas.width,canvas.height); drew=false; }
+  function openFor(box){ target=box; modal.classList.add('on'); setup(); clearCanvas(); }
+  document.getElementById('sigClear').onclick=clearCanvas;
+  document.getElementById('sigCancel').onclick=function(){ modal.classList.remove('on'); target=null; };
+  document.getElementById('sigOk').onclick=function(){
+    if(target){ if(drew){ target.innerHTML='<img src="'+canvas.toDataURL('image/png')+'">'; target.dataset.signed='1'; }
+      else { target.innerHTML='<span class="sighint">แตะเพื่อเซ็น</span>'; target.removeAttribute('data-signed'); } }
+    modal.classList.remove('on'); target=null;
+  };
+  modal.addEventListener('click',function(e){ if(e.target===modal){ modal.classList.remove('on'); target=null; } });
+  function enhance(){
+    var rows=document.querySelectorAll('div.row, div.sign');
+    rows.forEach(function(r){
+      var lbl=r.querySelector('.lbl'); if(!lbl || lbl.textContent.trim()!=='ลงชื่อ') return;
+      var inp=r.querySelector('input.f'); if(!inp || inp.getAttribute('data-sigdone')) return;
+      inp.setAttribute('data-sigdone','1');
+      var box=document.createElement('span'); box.className='sigbox';
+      box.innerHTML='<span class="sighint">แตะเพื่อเซ็น</span>';
+      var st=inp.getAttribute('style')||''; var m=st.match(/width:\s*([0-9]+%)/); if(m){ box.style.flex='0 0 '+m[1]; box.style.minWidth='0'; }
+      box.addEventListener('click',function(){ openFor(box); });
+      inp.parentNode.insertBefore(box, inp); inp.style.display='none';
+    });
+  }
+  enhance();
 })();
 </script>
 </body>
