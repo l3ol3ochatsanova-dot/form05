@@ -103,6 +103,12 @@
     .cklist .ckcell,.cklist .ckcol{padding:1px 5px;}
     table.wt th,table.wt td{padding:1px 3px;font-size:10.5px;}
     table.wt input{font-size:10.5px;}
+    /* ตาราง 9.1 (แนบท้าย) — บีบให้พอดีหน้าเดียว */
+    #page91 .wt th,#page91 .wt td{padding:0 3px;font-size:9.5px;}
+    #page91 .sigcell{height:20px;}
+    #page91 .sigcell img{max-height:18px;}
+    /* ไม่พิมพ์ตาราง 9.1 เมื่อผู้ปฏิบัติงานไม่เกิน 6 คน */
+    .hide91{display:none !important;}
     .title{font-size:14px;margin:0;}
     .subtitle{font-size:12px;margin-bottom:2px;}
     .foot{font-size:10.5px;}
@@ -114,6 +120,8 @@
   .sigbox img{height:34px;max-width:100%;display:block;margin:0 auto;}
   .sigcell{display:block;width:100%;height:42px;min-width:0;border-bottom:0;}
   .sigcell img{height:auto;max-height:40px;max-width:100%;margin:0 auto;display:block;}
+  .xrow{border:0;background:#ffe3e3;color:#d11;border-radius:4px;cursor:pointer;font-size:11px;line-height:1;padding:2px 6px;margin-left:4px;vertical-align:middle;}
+  .xrow:hover{background:#ffc9c9;}
   .sigbox .sighint{position:absolute;left:4px;bottom:3px;font-size:10px;color:#8aa;white-space:nowrap;}
   #sigModal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99999;display:none;align-items:center;justify-content:center;}
   #sigModal.on{display:flex;}
@@ -405,7 +413,7 @@
 </div>
 
 <!-- ============ PAGE 3 ============ -->
-<div class="page">
+<div class="page" id="page91">
   <div style="text-align:right;font-weight:600;margin-bottom:4px;">การขออนุญาตครั้งละไม่เกิน 1 วัน : แนบไว้กับ Work permit ตลอดเวลา</div>
   <div style="text-align:right;margin-bottom:4px;"><div class="wpbox">หมายเลข Work permit <input class="f" data-k="wp_no2" style="width:150px;"><br><span class="sub">(ออกเลขโดยผู้อนุญาตเข้าทำงานเจ้าของพื้นที่)</span></div></div>
   <div style="font-weight:700;margin-bottom:4px;">9.1 รายชื่อผู้ปฏิบัติงานที่ขออนุญาตเข้าพื้นที่ควบคุม/พื้นที่หวงห้าม</div>
@@ -1065,7 +1073,49 @@ var DEPARTMENTS = {
   },
   'หถน1-ส.': {
     div:'', sec:'', tel:'',
-    egatDefault:{}, workers:[], groups:{}, groupEgat:{}, groupCtrl:{},
+    egatDefault:{name:'นายพิษณุชัย บัวทอง', id:'490601', pos:'ช.9'},
+    workers:[
+      {name:'นายพิษณุชัย บัวทอง', id:'490601', pos:'ช.9'},
+      {name:'นายประสิทธิ์ชัย ฟองจางวาง', id:'476900', pos:'วศ.8'},
+      {name:'นายวัชรา จูเมฆา', id:'475653', pos:'ช.7'},
+      {name:'นายฤทธิ์เดช มงคลจันทร์', id:'477427', pos:'ช.6'},
+      {name:'นายคเชนทร์ เรือนก้อน', id:'511102', pos:'ช.8'},
+      {name:'นายสุปัญญา จุ้ยพ่วง', id:'524581', pos:'ช.7'},
+      {name:'นายดำเนิน ฟักบาง', id:'528757', pos:'ช.7'},
+      {name:'นายธีรยุทธ สุริยะ', id:'536253', pos:'ช.7'},
+      {name:'นายวิศณุ พูนประชา', id:'538450', pos:'ช.7'},
+      {name:'นายสุราษฎ์ กิตติจารุจรรย์', id:'546356', pos:'ช.8'},
+      {name:'น.ส.มุกรวี ทองน้อย', id:'596869', pos:'วศ.7'},
+      {name:'นายชาคริต นาเขต', id:'599482', pos:'ช.3'},
+      {name:'นายภูบดินทร์ พิริย์โยธินกุล', id:'599633', pos:'วศ.4'},
+      {name:'นายเอกชัย ธิเปี่ยง', id:'591400', pos:'ช.7'},
+      {name:'นายคุณากร คงคล้าย', id:'593705', pos:'ช.6'},
+      {name:'นายกีรติ สุนเกตุทรัช', id:'594527', pos:'ช.6'},
+      {name:'นายรัชชานนท์ พิพิธกุล', id:'596890', pos:'ช.5'},
+      {name:'นายอภิภัทร์ เจริญสวรรค์', id:'590733', pos:'ช.7'},
+      {name:'นายสุรศักดิ์ แก้วกล่ำ', id:'516740', pos:'ช.7'},
+      {name:'นายพงศกร ชมระกา', id:'592656', pos:'ช.6'},
+      {name:'นายจุฑาภัทร พานิช', id:'594525', pos:'ช.6'},
+      {name:'นายพงษ์เทพ ภู่ระย้า', id:'467162', pos:'ช.8'},
+      {name:'นายฤทธิ์ณรงค์ ยาดิบ', id:'596882', pos:'ช.5'},
+      {name:'นายอภิสิทธิ์ กล้องเสียง', id:'597706', pos:'ช.5'},
+      {name:'นายพรหมพิริยะ สืบตั๋น', id:'598803', pos:'ช.3'}
+    ],
+    groups:{
+      'SMU PL2-1':['นายเอกชัย ธิเปี่ยง','นายคุณากร คงคล้าย','นายกีรติ สุนเกตุทรัช','นายรัชชานนท์ พิพิธกุล'],
+      'SMU PL2-2':['นายอภิภัทร์ เจริญสวรรค์','นายสุรศักดิ์ แก้วกล่ำ','นายพงศกร ชมระกา','นายจุฑาภัทร พานิช'],
+      'SMU TA':['นายพงษ์เทพ ภู่ระย้า','นายฤทธิ์ณรงค์ ยาดิบ','นายอภิสิทธิ์ กล้องเสียง','นายพรหมพิริยะ สืบตั๋น']
+    },
+    groupEgat:{
+      'SMU PL2-1':{name:'นายเอกชัย ธิเปี่ยง', id:'591400', pos:'ช.7'},
+      'SMU PL2-2':{name:'นายอภิภัทร์ เจริญสวรรค์', id:'590733', pos:'ช.7'},
+      'SMU TA':{name:'นายพงษ์เทพ ภู่ระย้า', id:'467162', pos:'ช.8'}
+    },
+    groupCtrl:{
+      'SMU PL2-1':{name:'นายเอกชัย ธิเปี่ยง', id:'591400', pos:'ช.7'},
+      'SMU PL2-2':{name:'นายอภิภัทร์ เจริญสวรรค์', id:'590733', pos:'ช.7'},
+      'SMU TA':{name:'นายพงษ์เทพ ภู่ระย้า', id:'467162', pos:'ช.8'}
+    },
     stations:[
       {code:'BB',label:'สฟ.เขื่อนภูมิพล'},{code:'KP',label:'สฟ.กำแพงเพชร'},{code:'LKB',label:'สฟ.ลานกระบือ'},
       {code:'MS',label:'สฟ.แม่สอด'},{code:'PCK',label:'สฟ.ผาจุก'},{code:'PL1',label:'สฟ.พิษณุโลก 1'},
@@ -1201,7 +1251,8 @@ function buildTables(){
     var tr=document.createElement('tr');
     var html='<td>'+n+'</td>'+
       '<td><select class="np" data-r="'+i+'" onchange="selPerson('+i+',this.value)">'+PERSON_OPTIONS+'</select>'+
-      '<input class="rn" data-r="'+i+'" oninput="updateCount()"></td>'+
+      '<input class="rn" data-r="'+i+'" oninput="updateCount()">'+
+      '<button type="button" class="xrow noprint" title="ลบแถวนี้" onclick="clearRow('+i+');updateCount();">✕</button></td>'+
       '<td><input class="ri" data-r="'+i+'"></td>'+
       '<td><input class="rp" data-r="'+i+'"></td>'+
       '<td><input class="ru" data-r="'+i+'"></td>'+
@@ -1214,12 +1265,13 @@ function buildTables(){
 }
 function cellInput(cls,i){return document.querySelector(cls+'[data-r="'+i+'"]');}
 function setRow(i,w){ cellInput('.rn',i).value=w.name; cellInput('.ri',i).value=w.id; cellInput('.rp',i).value=w.pos; cellInput('.ru',i).value=w.unit; }
-function clearRow(i){ ['.rn','.ri','.rp','.ru'].forEach(function(c){var e=cellInput(c,i);if(e)e.value='';}); var sel=cellInput('.np',i); if(sel)sel.value=''; }
+function clearRow(i){ ['.rn','.ri','.rp','.ru'].forEach(function(c){var e=cellInput(c,i);if(e)e.value='';}); var sel=cellInput('.np',i); if(sel)sel.value=''; var rs=cellInput('.rs',i); if(rs){ var bx=rs.previousElementSibling; if(bx&&bx.classList&&bx.classList.contains('sigcell')){ bx.innerHTML='<span class="sighint">เซ็น</span>'; bx.removeAttribute('data-signed'); } } }
 function selPerson(i,v){ if(v==='')return; var w=WORKERS[+v]; if(!w)return; setRow(i,w); updateCount(); }
 function updateCount(){
   var c=0; document.querySelectorAll('.rn').forEach(function(e){ if(e.value.trim())c++; });
   setVal('egat_total', c?String(c):'');
   document.getElementById('wcount').textContent='กรอกชื่อแล้ว '+c+' คน';
+  var p91=document.getElementById('page91'); if(p91){ if(c<=6) p91.classList.add('hide91'); else p91.classList.remove('hide91'); }
   fillRowDates();
 }
 /* ข้อ 9 คอลัมน์ วัน/เดือน/ปี = วันที่สร้างใบงาน (เฉพาะแถวที่มีชื่อ, มีเฉพาะแถว 1-6) */
