@@ -152,7 +152,7 @@
     <div><label>เลือกแผนก:</label>
       <select id="deptSel" class="minisel" onchange="pickDept(this.value)">
         <option value="">▼ เลือกแผนก</option>
-        <option>หถน1-ส.</option><option>หถน2-ส.</option><option>หถน3-ส.</option><option>หถน4-ส.</option><option>หรล5-ส.</option><option>หรน3-ส.</option>
+        <option>หถน1-ส.</option><option>หถน2-ส.</option><option>หถน3-ส.</option><option>หถน4-ส.</option><option>หรล5-ส.</option><option>หรน3-ส.</option><option>หทน-ส.</option>
       </select>
     </div>
     <div><label>เลือกกรุ๊บทำงาน:</label>
@@ -1013,6 +1013,21 @@ var DEPARTMENTS = {
     groupEgat:{}, groupCtrl:{},
     stations:[], auth:{}, authPos:{}, authPosName:{}
   },
+  'หทน-ส.': {
+    div:'กทฟ-ส.', sec:'อหส.', tel:'', zoneFirst:'หถน4-ส.', autoGroup:true,
+    egatDefault:{name:'นายจักริน อินทร์สะอาด', id:'575187', pos:'ช.7'},
+    workers:[
+      {name:'นายจำรัส ยามเย็น', id:'510793', pos:'วศ.8'},
+      {name:'นายจักริน อินทร์สะอาด', id:'575187', pos:'ช.7'},
+      {name:'นายธนวัฒน์ ติ๊บปาละ', id:'598384', pos:'ช.3'}
+    ],
+    groups:{
+      'หทน-ส. (ทั้งแผนก)':['นายจำรัส ยามเย็น','นายจักริน อินทร์สะอาด','นายธนวัฒน์ ติ๊บปาละ']
+    },
+    groupEgat:{'หทน-ส. (ทั้งแผนก)':{name:'นายจักริน อินทร์สะอาด',id:'575187',pos:'ช.7'}},
+    groupCtrl:{'หทน-ส. (ทั้งแผนก)':{name:'นายจำรัส ยามเย็น',id:'510793',pos:'วศ.8'}},
+    stations:[], auth:{}, authPos:{}, authPosName:{}
+  },
   'หรล5-ส.': {
     div:'กรป-ส.', sec:'อรค.', tel:'',
     egatDefault:{name:'นายสิทธิพร กุลทรัพย์ศักดิ์', id:'565857', pos:'หรล5-ส.'},
@@ -1220,6 +1235,9 @@ function pickDept(code){
   setVal('ctl_dept',code); setVal('ctl_div',d.div||''); setVal('ctl_sec',d.sec||'');
   syncReq(); updateCount();
   safeStore('set', DEPT_KEY, code);
+  // แผนกที่ตั้ง autoGroup: เลือกแผนกแล้วเติมผู้ปฏิบัติงาน + ผู้ควบคุมงานของกรุ๊บแรกให้ทันที
+  var _g1=Object.keys(GROUPS)[0];
+  if(d.autoGroup && _g1){ if(gs) gs.value=_g1; pickGroup(_g1); }
   toast('เลือกแผนก '+code);
 }
 var JOB_KEYS = ['wp_no','wp_no2','req_date','work_place','work_detail','egat_total'];
@@ -1275,11 +1293,11 @@ function updateCount(){
 }
 /* ข้อ 9 คอลัมน์ วัน/เดือน/ปี = วันที่สร้างใบงาน (เฉพาะแถวที่มีชื่อ, มีเฉพาะแถว 1-6) */
 function fillRowDates(){
-  if(!TODAY_TXT) return;
+  if(!SHORT_TXT) return;
   document.querySelectorAll('.rd').forEach(function(dEl){
     var i=dEl.getAttribute('data-r');
     var nEl=document.querySelector('.rn[data-r="'+i+'"]');
-    if(nEl && nEl.value.trim()){ if(!dEl.value.trim()) dEl.value=TODAY_TXT; }
+    if(nEl && nEl.value.trim()){ if(!dEl.value.trim()) dEl.value=SHORT_TXT; }
     else { dEl.value=''; }
   });
 }
